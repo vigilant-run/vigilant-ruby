@@ -15,6 +15,7 @@ require 'vigilant-ruby'
 
 # Initialize the logger
 logger = Vigilant::Logger.new(
+  name: 'test-app',
   endpoint: "ingress.vigilant.run",
   token: "tk_0000000000000000",
 )
@@ -39,6 +40,7 @@ require 'vigilant-ruby'
 
 # Initialize the logger
 logger = Vigilant::Logger.new(
+  name: 'test-app',
   endpoint: "ingress.vigilant.run",
   token: "tk_0000000000000000",
 )

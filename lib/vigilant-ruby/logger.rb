@@ -18,11 +18,13 @@ module Vigilant
   class Logger
     # Initialize a Vigilant::Logger instance.
     #
+    # @param name [String] The name of the application.
     # @param endpoint [String] The base endpoint for the Vigilant API (e.g. "ingress.vigilant.run").
     # @param token [String] The authentication token for the Vigilant API.
     # @param insecure [Boolean] Whether to use HTTP instead of HTTPS (optional, defaults to false).
     # @param passthrough [Boolean] Whether to also print logs to stdout/stderr (optional, defaults to true).
-    def initialize(endpoint:, token:, insecure: false, passthrough: true)
+    def initialize(endpoint:, token:, name: 'test-app', insecure: false, passthrough: true)
+      @name = name
       @token = token
 
       protocol = insecure ? 'http://' : 'https://'
@@ -106,7 +108,7 @@ module Vigilant
         timestamp: Time.now.utc.strftime('%Y-%m-%dT%H:%M:%S.%9NZ'),
         body: body.to_s,
         level: level.to_s,
-        attributes: attributes.transform_values(&:to_s)
+        attributes: internal_attributes.merge(attributes.transform_values(&:to_s))
       }
 
       @queue << log_msg
@@ -164,6 +166,10 @@ module Vigilant
       request.body = JSON.dump(batch_data)
 
       http.request(request)
+    end
+
+    def internal_attributes
+      { 'service.name' => @name }
     end
   end
 
