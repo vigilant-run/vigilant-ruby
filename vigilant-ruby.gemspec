@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = 'vigilant-ruby'
-  spec.version       = '0.0.4'
+  spec.version       = '0.0.5'
   spec.authors       = ['Vigilant']
   spec.email         = ['izak@vigilant.run']
 
