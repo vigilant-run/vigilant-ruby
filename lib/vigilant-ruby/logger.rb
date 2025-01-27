@@ -3,15 +3,13 @@
 require 'net/http'
 require 'json'
 require 'time'
-require 'vigilant/version'
+require 'vigilant-ruby/version'
 
 module Vigilant
-  TRACE = 'TRACE'
   DEBUG = 'DEBUG'
   INFO = 'INFO'
   WARNING = 'WARNING'
   ERROR = 'ERROR'
-  FATAL = 'FATAL'
 
   DEFAULT_BATCH_SIZE = 10
   DEFAULT_FLUSH_INTERVAL = 5
@@ -84,14 +82,6 @@ module Vigilant
         attributes_with_error = { error: error.message, **attributes }
         enqueue_log(ERROR, body, attributes_with_error)
       end
-    end
-
-    # Logs a FATAL message.
-    #
-    # @param body [String] The main text of the fatal message.
-    # @param attributes [Hash] Additional attributes for the log (optional).
-    def fatal(body, attributes = {})
-      enqueue_log(FATAL, body, attributes)
     end
 
     def shutdown

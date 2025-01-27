@@ -1,0 +1,12 @@
+include:
+  - "**/*.rb"
+  - "**/*.rbs"
+reporters:
+  - rubocop
+  - typecheck
+require:
+  - vigilant-ruby
+domains: []
+reporters: []
+require_paths: []
+max_files: 5000

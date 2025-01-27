@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'version'
-require 'logger'
+require 'vigilant-ruby/version'
+require 'vigilant-ruby/logger'
 
 # Vigilant is a logging service that provides structured logging capabilities
 # with asynchronous batch processing and thread-safe operations.
