@@ -10,12 +10,13 @@ module Vigilant
 
   # Configuration for the Vigilant logging service.
   class Configuration
-    attr_accessor :endpoint, :token, :insecure
+    attr_accessor :endpoint, :token, :insecure, :passthrough
 
     def initialize
       @endpoint = 'ingress.vigilant.run'
       @insecure = false
       @token = 'tk_1234567890'
+      @passthrough = true
     end
   end
 
@@ -32,7 +33,8 @@ module Vigilant
       @logger ||= Vigilant::Logger.new(
         endpoint: configuration.endpoint,
         insecure: configuration.insecure,
-        token: configuration.token
+        token: configuration.token,
+        passthrough: configuration.passthrough
       )
     end
   end

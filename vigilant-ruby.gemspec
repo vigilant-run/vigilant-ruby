@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = 'vigilant-ruby'
-  spec.version       = '0.0.3'
+  spec.version       = '0.0.4'
   spec.authors       = ['Vigilant']
   spec.email         = ['izak@vigilant.run']
 
@@ -22,8 +22,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'json', '~> 2.0'
 
   spec.add_development_dependency 'bundler', '~> 2.0'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rbs', '~> 3.1'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 1.0'
   spec.add_development_dependency 'yard', '~> 0.9'
