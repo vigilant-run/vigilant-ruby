@@ -5,7 +5,21 @@ This is the Ruby SDK for Vigilant (https://vigilant.run).
 ## Installation
 
 ```bash
-gem install vigilant-ruby
+bundle add vigilant-ruby
+```
+
+## Logging Usage (Rails)
+
+```ruby
+# In config/application.rb
+require 'vigilant-ruby'
+
+module YourApp
+  class Application < Rails::Application
+    config.logger = Vigilant::Rails::Logger.new(token: 'tk_1234567890', name: 'test-app')
+    config.log_level = :debug
+  end
+end
 ```
 
 ## Logging Usage (Standard)
@@ -16,8 +30,7 @@ require 'vigilant-ruby'
 # Initialize the logger
 logger = Vigilant::Logger.new(
   name: 'test-app',
-  endpoint: "ingress.vigilant.run",
-  token: "tk_0000000000000000",
+  token: 'tk_1234567890',
 )
 
 # Basic logging
@@ -41,18 +54,17 @@ require 'vigilant-ruby'
 # Initialize the logger
 logger = Vigilant::Logger.new(
   name: 'test-app',
-  endpoint: "ingress.vigilant.run",
-  token: "tk_0000000000000000",
+  token: 'tk_1234567890',
 )
 
 # Enable autocapture
 logger.autocapture_enable
 
 # Log with autocapture
-puts "A print statement"
+puts 'A print statement'
 
 # Log without autocapture
-logger.info("A regular log")
+logger.info('A regular log')
 
 # Shutdown the logger
 logger.shutdown

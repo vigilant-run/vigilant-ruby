@@ -22,8 +22,8 @@ module Vigilant
     # @param endpoint [String] The base endpoint for the Vigilant API (e.g. "ingress.vigilant.run").
     # @param token [String] The authentication token for the Vigilant API.
     # @param insecure [Boolean] Whether to use HTTP instead of HTTPS (optional, defaults to false).
-    # @param passthrough [Boolean] Whether to also print logs to stdout/stderr (optional, defaults to true).
-    def initialize(endpoint:, token:, name: 'test-app', insecure: false, passthrough: true)
+    # @param passthrough [Boolean] Whether to also print logs to stdout/stderr (optional, defaults to false).
+    def initialize(name:, token:, endpoint:, insecure: false, passthrough: false)
       @name = name
       @token = token
 
@@ -49,22 +49,18 @@ module Vigilant
       start_dispatcher
     end
 
-    # Logs a debug message.
     def debug(body, attributes = {})
       enqueue_log(DEBUG, body, attributes)
     end
 
-    # Logs an info message.
     def info(body, attributes = {})
       enqueue_log(INFO, body, attributes)
     end
 
-    # Logs a warning message.
     def warn(body, attributes = {})
       enqueue_log(WARNING, body, attributes)
     end
 
-    # Logs an error message.
     def error(body, error = nil, attributes = {})
       if error.nil?
         enqueue_log(ERROR, body, attributes)
@@ -74,7 +70,6 @@ module Vigilant
       end
     end
 
-    # Enables stdout/stderr autocapture.
     def autocapture_enable
       return if @autocapture_enabled
 
@@ -83,7 +78,6 @@ module Vigilant
       $stderr = StderrInterceptor.new(self, @original_stderr)
     end
 
-    # Disables stdout/stderr autocapture.
     def autocapture_disable
       return unless @autocapture_enabled
 
@@ -92,7 +86,6 @@ module Vigilant
       $stderr = @original_stderr
     end
 
-    # Shuts down the logger, flushing any pending logs.
     def shutdown
       flush_if_needed(force: true)
       @mutex.synchronize { @shutdown = true }
