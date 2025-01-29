@@ -39,6 +39,8 @@ module Vigilant
           passthrough: passthrough
         )
 
+        at_exit { close }
+
         self.level = ::Logger::DEBUG
         @tags = []
         @extra_loggers = []
